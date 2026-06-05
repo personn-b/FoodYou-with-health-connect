@@ -18,7 +18,10 @@ class MainActivity : FoodYouAbstractActivity() {
                         }
 
                     startActivity(intent)
-                }
+                },
+                onHealthConnect = {
+                    startActivity(Intent(this, HealthConnectActivity::class.java))
+                },
             )
         }
     }

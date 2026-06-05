@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.health.READ_NUTRITION" />
+    <uses-permission android:name="android.permission.health.WRITE_NUTRITION" />
 
     <queries>
         <intent>
@@ -11,6 +13,11 @@
 
         <intent>
             <action android:name="android.support.customtabs.action.CustomTabsService" />
+        </intent>
+
+        <package android:name="com.google.android.apps.healthdata" />
+        <intent>
+            <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
         </intent>
     </queries>
 
@@ -65,6 +72,22 @@
             android:exported="false"
             android:label="DeveloperActivity"
             android:theme="@style/Theme.FoodYou" />
+
+        <activity
+            android:name=".app.infrastructure.android.HealthConnectActivity"
+            android:exported="false"
+            android:label="Health Connect"
+            android:theme="@style/Theme.FoodYou" />
+
+        <activity-alias
+            android:name=".app.infrastructure.android.HealthConnectRationaleActivity"
+            android:exported="true"
+            android:permission="android.permission.START_VIEW_PERMISSION_USAGE"
+            android:targetActivity=".app.infrastructure.android.HealthConnectActivity">
+            <intent-filter>
+                <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
+            </intent-filter>
+        </activity-alias>
 
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"

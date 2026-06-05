@@ -7,6 +7,7 @@ import com.maksimowiczm.foodyou.app.BuildConfig
 import com.maksimowiczm.foodyou.app.di.initKoin
 import com.maksimowiczm.foodyou.common.domain.date.DateProvider
 import com.maksimowiczm.foodyou.common.domain.event.EventBus
+import com.maksimowiczm.foodyou.healthconnect.healthConnectModule
 import com.maksimowiczm.foodyou.settings.domain.event.AppLaunchEvent
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
@@ -24,7 +25,10 @@ class FoodYouApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        initKoin(coroutineScope) { androidContext(this@FoodYouApplication) }
+        initKoin(coroutineScope) {
+            androidContext(this@FoodYouApplication)
+            modules(healthConnectModule)
+        }
         publishLaunchEvent()
 
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()

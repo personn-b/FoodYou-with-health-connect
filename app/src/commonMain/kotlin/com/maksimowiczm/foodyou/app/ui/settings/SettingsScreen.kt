@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.PrivacyTip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeFlexibleTopAppBar
@@ -36,6 +37,7 @@ fun SettingsScreen(
     onGoals: () -> Unit,
     onPersonalization: () -> Unit,
     onDatabase: () -> Unit,
+    onHealthConnect: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -107,6 +109,22 @@ fun SettingsScreen(
                     color = color,
                     contentColor = contentColor,
                 )
+            }
+
+            if (onHealthConnect != null) {
+                item {
+                    SettingsListItem(
+                        icon = { Icon(Icons.Outlined.FavoriteBorder, null) },
+                        label = { Text(stringResource(Res.string.headline_health_connect)) },
+                        supportingContent = {
+                            Text(stringResource(Res.string.description_health_connect))
+                        },
+                        onClick = onHealthConnect,
+                        shape = shape,
+                        color = color,
+                        contentColor = contentColor,
+                    )
+                }
             }
 
             item {

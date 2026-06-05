@@ -531,4 +531,18 @@
     <string name="description_privacy_policy">See how your data is handled</string>
 
     <string name="error_open_food_facts_timeout">Open Food Facts is taking too long to respond. The service may be temporarily slow or unavailable. Try scanning the product barcode instead.</string>
+
+    <string name="headline_health_connect" translatable="false">Health Connect</string>
+    <string name="description_health_connect">Sync your food diary with Google Health Connect</string>
+    <string name="headline_health_connect_unavailable">Health Connect not available</string>
+    <string name="description_health_connect_unavailable">Install or update the Health Connect app to use this feature</string>
+    <string name="description_health_connect_permissions_required">Grant read and write nutrition permissions in Health Connect to enable syncing</string>
+    <string name="action_grant_permissions">Grant permissions</string>
+    <string name="action_sync_now">Sync now</string>
+    <string name="headline_sync_enabled">Sync enabled</string>
+    <string name="description_sync_enabled">Diary entries are synced to Health Connect automatically</string>
+    <string name="description_sync_disabled">Enable to automatically sync your diary entries to Health Connect</string>
+    <string name="headline_syncing">Syncing…</string>
+    <string name="description_last_synced">Last synced: %s</string>
+    <string name="description_never_synced">Never synced</string>
 </resources>
