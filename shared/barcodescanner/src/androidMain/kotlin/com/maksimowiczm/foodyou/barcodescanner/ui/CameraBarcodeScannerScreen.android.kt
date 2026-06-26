@@ -126,7 +126,7 @@ private fun RequestCameraPermissionScreen(
             stringResource(Res.string.neutral_barcode_scanner_camera_request)
         }
 
-    Surface(modifier = modifier, onClick = onRequest) {
+    Surface(modifier = modifier.fillMaxSize(), onClick = onRequest) {
         Column(
             modifier = Modifier.fillMaxSize().safeContentPadding(),
             verticalArrangement = Arrangement.Center,

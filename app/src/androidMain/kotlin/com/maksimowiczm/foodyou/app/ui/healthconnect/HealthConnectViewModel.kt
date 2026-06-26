@@ -37,8 +37,12 @@ class HealthConnectViewModel(
         viewModelScope.launch { _hasPermissions.value = manager.hasPermissions() }
     }
 
-    fun refreshPermissions() {
-        viewModelScope.launch { _hasPermissions.value = manager.hasPermissions() }
+    fun refreshPermissions(grantedPermissions: Set<String>? = null) {
+        if (grantedPermissions != null) {
+            _hasPermissions.value = grantedPermissions.containsAll(HealthConnectManager.PERMISSIONS)
+        } else {
+            viewModelScope.launch { _hasPermissions.value = manager.hasPermissions() }
+        }
     }
 
     fun setSyncEnabled(enabled: Boolean) {

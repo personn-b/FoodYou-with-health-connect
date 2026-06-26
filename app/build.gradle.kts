@@ -108,6 +108,7 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.sqlite.android)
             implementation(libs.health.connect.client)
+            implementation(libs.androidx.work.runtime.ktx)
         }
 
         androidInstrumentedTest.dependencies {

@@ -75,9 +75,16 @@
 
         <activity
             android:name=".app.infrastructure.android.HealthConnectActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="Health Connect"
-            android:theme="@style/Theme.FoodYou" />
+            android:theme="@style/Theme.FoodYou">
+            <intent-filter>
+                <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
+            </intent-filter>
+            <meta-data
+                android:name="health_permissions"
+                android:resource="@array/health_permissions" />
+        </activity>
 
         <activity-alias
             android:name=".app.infrastructure.android.HealthConnectRationaleActivity"
@@ -85,7 +92,8 @@
             android:permission="android.permission.START_VIEW_PERMISSION_USAGE"
             android:targetActivity=".app.infrastructure.android.HealthConnectActivity">
             <intent-filter>
-                <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
+                <action android:name="android.intent.action.VIEW_PERMISSION_USAGE" />
+                <category android:name="android.intent.category.HEALTH_PERMISSIONS" />
             </intent-filter>
         </activity-alias>
 

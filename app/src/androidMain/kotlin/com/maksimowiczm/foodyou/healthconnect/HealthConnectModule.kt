@@ -11,6 +11,7 @@ val healthConnectModule = module {
 
     single(createdAtStart = true) {
         HealthConnectSyncService(
+            context = androidContext(),
             manager = get(),
             observeDiaryMealsUseCase = get(),
             dateProvider = get(),

@@ -1,10 +1,15 @@
 package com.maksimowiczm.foodyou.healthconnect
 
+import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.maksimowiczm.foodyou.common.domain.date.DateProvider
 import com.maksimowiczm.foodyou.fooddiary.domain.usecase.ObserveDiaryMealsUseCase
+import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
@@ -13,6 +18,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class HealthConnectSyncService(
+    private val context: Context,
     private val manager: HealthConnectManager,
     private val observeDiaryMealsUseCase: ObserveDiaryMealsUseCase,
     private val dateProvider: DateProvider,
@@ -27,6 +33,7 @@ class HealthConnectSyncService(
 
     init {
         coroutineScope.launch { observeAndSync() }
+        coroutineScope.launch { manageDailySync() }
     }
 
     private suspend fun observeAndSync() {
@@ -42,6 +49,23 @@ class HealthConnectSyncService(
                     }
                 }
             }
+    }
+
+    private suspend fun manageDailySync() {
+        val workManager = WorkManager.getInstance(context)
+        syncEnabled.collect { enabled ->
+            if (enabled && manager.isAvailable) {
+                val request = PeriodicWorkRequestBuilder<HealthConnectSyncWorker>(24, TimeUnit.HOURS)
+                    .build()
+                workManager.enqueueUniquePeriodicWork(
+                    HealthConnectSyncWorker.WORK_NAME,
+                    ExistingPeriodicWorkPolicy.KEEP,
+                    request,
+                )
+            } else {
+                workManager.cancelUniqueWork(HealthConnectSyncWorker.WORK_NAME)
+            }
+        }
     }
 
     suspend fun syncNow() {

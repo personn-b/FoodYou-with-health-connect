@@ -36,7 +36,7 @@ fun LanguageScreen(onBack: () -> Unit, modifier: Modifier = Modifier) {
 
     val selectedTranslation by viewModel.translation.collectAsStateWithLifecycle()
     val translations by viewModel.translations.collectAsStateWithLifecycle()
-
+1
     LanguageScreen(
         onBack = onBack,
         onLanguageSelect = viewModel::selectTranslation,

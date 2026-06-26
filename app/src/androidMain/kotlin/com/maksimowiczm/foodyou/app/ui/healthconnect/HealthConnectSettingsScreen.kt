@@ -80,8 +80,8 @@ private fun AvailableScreen(
 
     val permissionsLauncher = rememberLauncherForActivityResult(
         contract = PermissionController.createRequestPermissionResultContract(),
-    ) {
-        viewModel.refreshPermissions()
+    ) { granted ->
+        viewModel.refreshPermissions(granted)
     }
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
